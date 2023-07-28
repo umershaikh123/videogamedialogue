@@ -1,0 +1,45 @@
+.button {
+  display: flex;
+  padding: 0.625rem 1.125rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: stretch;
+  border-radius: 8px;
+  border: 1px solid #475467;
+  background: #475467;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  color: #ffffff;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+.medium {
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.googleButton {
+  display: flex;
+  padding: 0.625rem 1.125rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  align-self: stretch;
+  border-radius: 8px;
+  border: 1px solid #d0d5dd;
+  background: #ffffff;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  width: 100%;
+  color: #344054;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5rem;
+  cursor: pointer;
+}

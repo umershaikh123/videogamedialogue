@@ -1,0 +1,31 @@
+.loginHeader {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  text-align: center;
+  align-items: center;
+  color: #101828;
+}
+
+.loginIcon {
+  max-width: 3.5rem;
+  max-height: 3.5rem;
+}
+
+.loginHeaderText {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.75rem;
+}
+
+.loginTitle {
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 2.375rem;
+}
+
+.loginDescription {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: #475467;
+}
