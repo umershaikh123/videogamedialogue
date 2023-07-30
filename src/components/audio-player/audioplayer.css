@@ -1,0 +1,126 @@
+.audioplayer-player {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px 20px;
+  box-shadow: 0px 1px 3px rgba(16, 24, 40, 0.1),
+    0px 1px 2px rgba(16, 24, 40, 0.06);
+  border: 1px solid #eaecf0;
+  border-radius: 12px;
+  background-color: white;
+  display: flex;
+}
+
+.audioplayer-player_content {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.audioplayer-player_icon {
+  width: 40px;
+  height: 40px;
+  background: #f2f4f7;
+  color: #344054;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.audioplayer-player_icon svg path {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.audioplayer-player_bottom {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.audioplayer-player_timeline-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.audioplayer-player_timeline {
+  width: 100%;
+  height: 8px;
+  background: #eaecf0;
+  border-radius: 2px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  cursor: pointer;
+}
+
+.audioplayer-player_timeline-current {
+  width: 0%;
+  height: 100%;
+  background: #344054;
+  border-radius: 2px;
+}
+
+.audioplayer-player_timeline-handle {
+  width: 16px;
+  height: 16px;
+  background: #344054;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  left: 0%;
+  cursor: pointer;
+}
+
+.audioplayer-player_timeline-timestamp {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.audioplayer-player_timeline_jump-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.audioplayer-player_timeline_jump {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.audioplayer-player_download-file {
+  color: #344054;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 568px) {
+  .audioplayer-player_icon {
+    width: 32px;
+    height: 32px;
+  }
+  .audioplayer-player_timeline_jump-wrapper {
+    display: none;
+  }
+  .audioplayer-player_timeline {
+    margin-left: 8px;
+  }
+}

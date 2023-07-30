@@ -1,7 +1,7 @@
 import styles from "./styles.module.css";
 import { ButtonProps } from "./types";
 import Image from "next/image";
-import google from "../../../assets/images/Social-icon.svg";
+import { GoogleIcon } from "@/components/icons";
 
 export default function Button({
   label,
@@ -15,7 +15,7 @@ export default function Button({
     <>
       {isGoogle ? (
         <button className={styles.googleButton} onClick={onClick} type="button">
-          <Image src={google} alt="Google logo" className={styles.googleIcon} />
+          <GoogleIcon />
           {label}
         </button>
       ) : (

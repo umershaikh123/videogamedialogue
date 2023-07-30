@@ -25,7 +25,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <AuthProvider accessToken={accessToken}>{children}</AuthProvider>
+        <div className="page-wrapper">
+          <AuthProvider accessToken={accessToken}>{children}</AuthProvider>
+        </div>
       </body>
     </html>
   );

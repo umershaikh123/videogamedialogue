@@ -1,0 +1,14 @@
+export { default as HomeIcon } from "./home.svg";
+export { default as LogoIcon } from "./logomark.svg";
+export { default as AddIcon } from "./add.svg";
+export { default as SupportIcon } from "./support.svg";
+export { default as GoogleIcon } from "./google.svg";
+export { default as MailIcon } from "./mail-icon.svg";
+export { default as ArrowIcon } from "./arrow-left.svg";
+export { default as PlayIcon } from "./play.svg";
+export { default as PauseIcon } from "./pause.svg";
+export { default as ExportIcon } from "./export.svg";
+export { default as TrashIcon } from "./trash.svg";
+export { default as EditIcon } from "./edit.svg";
+export { default as UploadIcon } from "./upload.svg";
+export { default as EasyDX } from "./logo.svg";
