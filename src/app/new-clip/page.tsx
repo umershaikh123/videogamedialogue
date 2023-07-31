@@ -204,6 +204,7 @@ export default function NewCharacter() {
                           <div className={styles.dropdownItem}>
                             <Image
                               className={styles.characterImage}
+                              style={{ objectFit: "cover" }}
                               alt={
                                 selectedCharacter?.name
                                   ? selectedCharacter.name
@@ -256,7 +257,7 @@ export default function NewCharacter() {
                       className={styles.input}
                       type="text"
                       name="fileName"
-                      placeholder="Cut Scene 1, Line 2"
+                      placeholder="PlayerName_01"
                       onChange={(e) => setFileUploadName(e.target.value)}
                       value={fileUploadName}
                     />
@@ -266,8 +267,8 @@ export default function NewCharacter() {
                     <SupportText name="Text" />
                     <textarea
                       className={styles.input + " " + styles.textArea}
-                      name="fileName"
-                      placeholder="Cut Scene 1, Line 2"
+                      name="fileText"
+                      placeholder="Enter your line of dialogue here."
                       onChange={(e) => setFileUploadText(e.target.value)}
                       value={fileUploadText}
                     />

@@ -157,6 +157,7 @@ export default function NewCharacter() {
                     <div className="avatar">
                       <Image
                         src={avatarUrl}
+                        style={{ objectFit: "cover" }}
                         alt="Avatar"
                         width={200}
                         height={200}

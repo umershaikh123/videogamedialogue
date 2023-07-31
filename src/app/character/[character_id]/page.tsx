@@ -418,6 +418,7 @@ export default function CharacterPage({
                     src={character.image_url}
                     width={40}
                     height={40}
+                    style={{ objectFit: "cover" }}
                   />
                 ) : (
                   <Image

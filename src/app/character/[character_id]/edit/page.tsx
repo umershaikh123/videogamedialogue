@@ -281,6 +281,7 @@ export default function CharacterPage({
                             alt="Avatar"
                             width={200}
                             height={200}
+                            style={{ objectFit: "cover" }}
                           />
                         </div>
                       ) : (
