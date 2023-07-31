@@ -27,7 +27,7 @@ export default function NewCharacter() {
 
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     accept: {
-      "audio/*": [".mp3", ".wav", ".ogg", ".m4a"],
+      "audio/*": [".mp3", ".wav", ".ogg"],
     },
     maxFiles: 25,
   });
