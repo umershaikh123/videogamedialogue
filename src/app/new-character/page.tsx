@@ -37,6 +37,7 @@ export default function NewCharacter() {
 
   const [avatarUrl, setAvatarUrl] = useState("");
   const [uploading, setUploading] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const files = acceptedFiles.map((file: FileWithPath) => (
     <li key={file.path}>
@@ -61,6 +62,7 @@ export default function NewCharacter() {
     );
     if (uploadedVoice) {
       alert("Voice uploaded successfully!");
+      uploadAvatar(uploadedVoice[1]);
       setIsLoading(false);
       router.push("/new-clip?character_id=" + uploadedVoice[1]);
     } else {
@@ -69,33 +71,18 @@ export default function NewCharacter() {
     }
   };
 
-  /*async function downloadImage() {
-    try {
-      const { data, error } = await supabase.storage
-        .from("avatars")
-        .download(`${user?.id}/profile.png`);
-      if (error) {
-        throw error;
-      }
-      const url = URL.createObjectURL(data);
-      setAvatarUrl(url);
-    } catch (error) {
-      console.log("Error downloading image: ", error);
-    }
-  }
-
-  async function uploadAvatar(event: React.ChangeEvent<HTMLInputElement>) {
+  async function uploadAvatar(character_id: string) {
     try {
       setUploading(true);
-
-      if (!event.target.files || event.target.files.length === 0) {
+      if (!imageFile) {
         throw new Error("You must select an image to upload.");
       }
 
-      const file = event.target.files[0];
-      //const fileExt = file.name.split(".").pop();
-      const fileName = `profile.png`;
-      const filePath = `${user?.id}/${fileName}`;
+      const file = imageFile;
+      const filePath = `${user?.id}/${character_id}/profile.png`;
+
+      const imageUrl = URL.createObjectURL(file);
+      setAvatarUrl(imageUrl);
 
       let { error: uploadError } = await supabase.storage
         .from("avatars")
@@ -109,7 +96,18 @@ export default function NewCharacter() {
     } finally {
       setUploading(false);
     }
-  }*/
+  }
+
+  const setPreviewImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files || event.target.files.length === 0) {
+      throw new Error("You must select an image to upload.");
+    }
+
+    const file = event.target.files[0];
+    const imageUrl = URL.createObjectURL(file);
+    setImageFile(file);
+    setAvatarUrl(imageUrl);
+  };
 
   return (
     <>
@@ -151,7 +149,7 @@ export default function NewCharacter() {
                   value={fileUploadDescription}
                 />
               </div>
-              {/* <Divider top={20} bottom={20} />
+              <Divider top={20} bottom={20} />
               <div className="step-content">
                 <SupportText name="Image" description="Minimum 40x40" />
                 <div className="avatar-upload-wrapper">
@@ -160,8 +158,8 @@ export default function NewCharacter() {
                       <Image
                         src={avatarUrl}
                         alt="Avatar"
-                        width={80}
-                        height={80}
+                        width={200}
+                        height={200}
                       />
                     </div>
                   ) : (
@@ -185,11 +183,11 @@ export default function NewCharacter() {
                     type="file"
                     id="single"
                     accept="image/*"
-                    onChange={uploadAvatar}
+                    onChange={setPreviewImage}
                     disabled={uploading}
                   />
                 </div>
-              </div>*/}
+              </div>
               <Divider top={20} bottom={20} />
               <div className="step-content">
                 <SupportText

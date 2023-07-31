@@ -53,13 +53,38 @@ export default function NewCharacter() {
     if (error) {
       throw error;
     }
-    console.log(data);
+
+    const charactersWithImages = await Promise.all(
+      data.map(async (character) => {
+        try {
+          const { data: image_data, error: image_error } =
+            await supabase.storage
+              .from("avatars")
+              .download(`${user?.id}/${character.character_id}/profile.png`);
+          if (image_error) {
+            throw image_error;
+          }
+
+          const blob = new Blob([image_data], { type: "image/png" });
+          const imageUrl = URL.createObjectURL(blob);
+
+          return {
+            ...character,
+            image_url: imageUrl,
+          };
+        } catch (error) {
+          return character;
+        }
+      })
+    );
+
     setIsLoading(false);
-    setCharacters(data);
+    setCharacters(charactersWithImages);
     if (preCharacterId !== null) {
       setSelectedCharacter(
-        data.find((character) => character.character_id === preCharacterId) ||
-          characters[0]
+        charactersWithImages.find(
+          (character) => character.character_id === preCharacterId
+        ) || characters[0]
       );
     }
   };
@@ -78,7 +103,6 @@ export default function NewCharacter() {
     }
 
     try {
-      console.log(selectedCharacter.elevenlabs_id);
       const apiEndpoint = `https://api.elevenlabs.io/v1/text-to-speech/${selectedCharacter.elevenlabs_id}`;
       const apiKey = process.env.NEXT_PUBLIC_ELEVENLABS_API_KEY;
 

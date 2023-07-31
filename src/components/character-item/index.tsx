@@ -10,14 +10,27 @@ export default function CharacterItem(props: {
   description?: string;
   icon?: StaticImageData;
   href: string;
+  image_url?: string;
 }) {
   return (
     <Link className={styles.wrapper} href={props.href}>
-      <Image
-        alt="Character picture"
-        className={styles.iconWrapper}
-        src={props.icon ? props.icon : PlaceholderImage}
-      />
+      {props.image_url ? (
+        <Image
+          alt="Character picture"
+          className={styles.iconWrapper}
+          src={props.image_url}
+          width={40}
+          height={40}
+        />
+      ) : (
+        <Image
+          alt="Character picture"
+          className={styles.iconWrapper}
+          src={props.icon ? props.icon : PlaceholderImage}
+          width={40}
+          height={40}
+        />
+      )}
       <div className={styles.textWrapper}>
         <h3
           className="text-regular"

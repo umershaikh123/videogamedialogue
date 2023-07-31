@@ -40,9 +40,32 @@ export default function Home() {
     if (error) {
       throw error;
     }
-    console.log(data);
+
+    const charactersWithImages = await Promise.all(
+      data.map(async (character) => {
+        try {
+          const { data: image_data, error: image_error } =
+            await supabase.storage
+              .from("avatars")
+              .download(`${user?.id}/${character.character_id}/profile.png`);
+          if (image_error) {
+            throw image_error;
+          }
+
+          const blob = new Blob([image_data], { type: "image/png" });
+          const imageUrl = URL.createObjectURL(blob);
+
+          return {
+            ...character,
+            image_url: imageUrl,
+          };
+        } catch (error) {
+          return character;
+        }
+      })
+    );
     setIsLoading(false);
-    setCharacters(data);
+    setCharacters(charactersWithImages);
   };
 
   useEffect(() => {
@@ -89,6 +112,7 @@ export default function Home() {
                   title={character.name}
                   description={character.description}
                   href={`/character/${character.character_id}`}
+                  image_url={character.image_url}
                 />
               ))
             )}

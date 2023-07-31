@@ -57,8 +57,34 @@ export default function CharacterPage({
       router.push("/");
       throw error;
     }
+
+    let characterWithImage = data;
+
+    try {
+      const { data: image_data, error: image_error } = await supabase.storage
+        .from("avatars")
+        .download(`${user?.id}/${params.character_id}/profile.png`);
+      if (image_error) {
+        console.error(
+          `Error retrieving image for character ${params.character_id}: ${image_error.message}`
+        );
+      } else {
+        const blob = new Blob([image_data], { type: "image/png" });
+        const imageUrl = URL.createObjectURL(blob);
+
+        characterWithImage = {
+          ...data,
+          image_url: imageUrl,
+        };
+      }
+    } catch (error) {
+      console.error(
+        `Error retrieving image for character ${params.character_id}: ${error}`
+      );
+    }
+
     setIsLoading(false);
-    setCharacter(data);
+    setCharacter(characterWithImage);
   };
 
   const retreiveCharacterClips = async () => {
@@ -385,13 +411,23 @@ export default function CharacterPage({
           <>
             <div className="characterHeader">
               <div className="page-header has-picture">
-                <Image
-                  alt="Character"
-                  src={PlaceholderImage}
-                  width={40}
-                  height={40}
-                  className="character-picture"
-                />
+                {character.image_url ? (
+                  <Image
+                    alt="Character picture"
+                    className="character-picture"
+                    src={character.image_url}
+                    width={40}
+                    height={40}
+                  />
+                ) : (
+                  <Image
+                    alt="Character picture"
+                    className="character-picture"
+                    src={PlaceholderImage}
+                    width={40}
+                    height={40}
+                  />
+                )}
                 <h2 className="heading-large">{character?.name}</h2>
               </div>
               <div className="buttons-wrapper">
