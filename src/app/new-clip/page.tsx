@@ -145,6 +145,7 @@ export default function NewCharacter() {
         user_id: user.id,
       };
 
+      setIsLoading(false);
       return setClip(newClip);
     } catch (error) {
       console.error(error);
@@ -162,102 +163,106 @@ export default function NewCharacter() {
             </div>
             <section>
               <Divider top={0} bottom={24} />
-              <form onSubmit={handleGenerateVoice}>
-                <div className="step-content">
-                  <SupportText name="Character Name" />
-                  <Listbox
-                    value={selectedCharacter}
-                    onChange={(value) => {
-                      setSelectedCharacter(value);
-                    }}
-                  >
-                    <div className={styles.dropdownRelative}>
-                      <Listbox.Button className={styles.dropdown}>
-                        <div className={styles.dropdownItem}>
-                          <Image
-                            className={styles.characterImage}
-                            alt={
-                              selectedCharacter?.name
-                                ? selectedCharacter.name
-                                : ""
-                            }
-                            src={
-                              selectedCharacter?.image_url
-                                ? selectedCharacter.image_url
-                                : PlaceholderImage
-                            }
-                            width={20}
-                            height={20}
-                          />
-                          {selectedCharacter?.name ? (
-                            selectedCharacter.name
-                          ) : (
-                            <p>Select a character</p>
-                          )}
-                        </div>
-                      </Listbox.Button>
-                      <Listbox.Options className={styles.dropdownList}>
-                        {characters.map((character) => (
-                          <Listbox.Option
-                            key={character.character_id}
-                            value={character}
-                            className={styles.dropdownItem}
-                          >
+              {isLoading ? (
+                <Spinner />
+              ) : (
+                <form onSubmit={handleGenerateVoice}>
+                  <div className="step-content">
+                    <SupportText name="Character Name" />
+                    <Listbox
+                      value={selectedCharacter}
+                      onChange={(value) => {
+                        setSelectedCharacter(value);
+                      }}
+                    >
+                      <div className={styles.dropdownRelative}>
+                        <Listbox.Button className={styles.dropdown}>
+                          <div className={styles.dropdownItem}>
                             <Image
                               className={styles.characterImage}
-                              alt={character.name}
+                              alt={
+                                selectedCharacter?.name
+                                  ? selectedCharacter.name
+                                  : ""
+                              }
                               src={
-                                character.image_url
-                                  ? character.image_url
+                                selectedCharacter?.image_url
+                                  ? selectedCharacter.image_url
                                   : PlaceholderImage
                               }
                               width={20}
                               height={20}
                             />
-                            {character.name}
-                          </Listbox.Option>
-                        ))}
-                      </Listbox.Options>
-                    </div>
-                  </Listbox>
-                </div>
-                <Divider top={20} bottom={20} />
-                <div className="step-content">
-                  <SupportText name="File Name" />
-                  <input
-                    className={styles.input}
-                    type="text"
-                    name="fileName"
-                    placeholder="Cut Scene 1, Line 2"
-                    onChange={(e) => setFileUploadName(e.target.value)}
-                    value={fileUploadName}
-                  />
-                </div>
-                <Divider top={20} bottom={20} />
-                <div className="step-content">
-                  <SupportText name="Text" />
-                  <textarea
-                    className={styles.input + " " + styles.textArea}
-                    name="fileName"
-                    placeholder="Cut Scene 1, Line 2"
-                    onChange={(e) => setFileUploadText(e.target.value)}
-                    value={fileUploadText}
-                  />
-                </div>
-                <Divider top={20} bottom={20} />
-                <div className="buttons-wrapper">
-                  <button
-                    className="button-secondary"
-                    type="button"
-                    onClick={() => router.push("/")}
-                  >
-                    Cancel
-                  </button>
-                  <button className="button-primary" type="submit">
-                    Generate Audio
-                  </button>
-                </div>
-              </form>
+                            {selectedCharacter?.name ? (
+                              selectedCharacter.name
+                            ) : (
+                              <p>Select a character</p>
+                            )}
+                          </div>
+                        </Listbox.Button>
+                        <Listbox.Options className={styles.dropdownList}>
+                          {characters.map((character) => (
+                            <Listbox.Option
+                              key={character.character_id}
+                              value={character}
+                              className={styles.dropdownItem}
+                            >
+                              <Image
+                                className={styles.characterImage}
+                                alt={character.name}
+                                src={
+                                  character.image_url
+                                    ? character.image_url
+                                    : PlaceholderImage
+                                }
+                                width={20}
+                                height={20}
+                              />
+                              {character.name}
+                            </Listbox.Option>
+                          ))}
+                        </Listbox.Options>
+                      </div>
+                    </Listbox>
+                  </div>
+                  <Divider top={20} bottom={20} />
+                  <div className="step-content">
+                    <SupportText name="File Name" />
+                    <input
+                      className={styles.input}
+                      type="text"
+                      name="fileName"
+                      placeholder="Cut Scene 1, Line 2"
+                      onChange={(e) => setFileUploadName(e.target.value)}
+                      value={fileUploadName}
+                    />
+                  </div>
+                  <Divider top={20} bottom={20} />
+                  <div className="step-content">
+                    <SupportText name="Text" />
+                    <textarea
+                      className={styles.input + " " + styles.textArea}
+                      name="fileName"
+                      placeholder="Cut Scene 1, Line 2"
+                      onChange={(e) => setFileUploadText(e.target.value)}
+                      value={fileUploadText}
+                    />
+                  </div>
+                  <Divider top={20} bottom={20} />
+                  <div className="buttons-wrapper">
+                    <button
+                      className="button-secondary"
+                      type="button"
+                      onClick={() => router.push("/")}
+                    >
+                      Cancel
+                    </button>
+                    <button className="button-primary" type="submit">
+                      Generate Audio
+                    </button>
+                  </div>
+                </form>
+              )}
             </section>
           </main>
         </>

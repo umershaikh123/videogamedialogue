@@ -16,7 +16,7 @@ import "./characterPage.css";
 import { useEffect } from "react";
 import { supabase } from "@/services/supabase";
 import PlaceholderImage from "@/images/placeholder.png";
-import { AddIcon, ExportIcon, TrashIcon } from "@/components/icons";
+import { AddIcon, ExportIcon, PlayIcon, TrashIcon } from "@/components/icons";
 import toWav from "audiobuffer-to-wav";
 
 export default function CharacterPage({
@@ -363,9 +363,16 @@ export default function CharacterPage({
                 >
                   Edit Character
                 </button>
-                <button className="button-primary">
+                <button
+                  className="button-primary"
+                  onClick={() =>
+                    router.push(
+                      `/new-clip?character_id=${character.character_id}`
+                    )
+                  }
+                >
                   <AddIcon width={20} height={20} />
-                  <span className="button-primary__text">New Audio Clip</span>
+                  New Audio Clip
                 </button>
               </div>
             </div>
@@ -381,34 +388,45 @@ export default function CharacterPage({
                   <div className="table-cell"></div>
                   <div className="table-cell"></div>
                 </div>
-                {clips?.map((clip) => (
-                  <div className="table-row" key={clip.clip_id}>
+                {clips !== null && clips.length > 0 ? (
+                  <>
+                    {clips?.map((clip) => (
+                      <div className="table-row" key={clip.clip_id}>
+                        <div className="table-cell">
+                          <PlayIcon width={20} height={20} />
+                          <p className="table-row_title">{clip.name}</p>
+                        </div>
+                        <div className="table-cell">
+                          <p className="table-row_title">
+                            {clip.created_at ? getTime(clip.created_at) : ""}
+                          </p>
+                        </div>
+                        <div className="table-cell">
+                          <button
+                            className="button-icon"
+                            onClick={() => handleDelete(clip.clip_id)}
+                          >
+                            <TrashIcon width={20} height={20} />
+                          </button>
+                        </div>
+                        <div className="table-cell">
+                          <button
+                            className="button-icon"
+                            onClick={() => handleExportClick(clip)}
+                          >
+                            <ExportIcon width={20} height={20} />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  <div className="table-row">
                     <div className="table-cell">
-                      <p className="table-row_title">{clip.name}</p>
-                    </div>
-                    <div className="table-cell">
-                      <p className="table-row_title">
-                        {clip.created_at ? getTime(clip.created_at) : ""}
-                      </p>
-                    </div>
-                    <div className="table-cell">
-                      <button
-                        className="button-icon"
-                        onClick={() => handleDelete(clip.clip_id)}
-                      >
-                        <TrashIcon width={20} height={20} />
-                      </button>
-                    </div>
-                    <div className="table-cell">
-                      <button
-                        className="button-icon"
-                        onClick={() => handleExportClick(clip)}
-                      >
-                        <ExportIcon width={20} height={20} />
-                      </button>
+                      <p className="table-row_title">No clips found</p>
                     </div>
                   </div>
-                ))}
+                )}
               </div>
             </section>
           </>

@@ -27,10 +27,14 @@ export default function Sidebar() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.sidebarTop}>
-        <div className={styles.sidebarLogo}>
+        <Link
+          href="/"
+          style={{ cursor: "pointer" }}
+          className={styles.sidebarLogo}
+        >
           <EasyDX alt={"Easy DX"} width={169} height={32} />
           <h1 style={{ display: "none" }}>Easy DX</h1>
-        </div>
+        </Link>
         <ul className={styles.menu}>
           {SidebarData.map((item, index) => {
             return (

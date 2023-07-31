@@ -78,76 +78,79 @@ export default function NewCharacter() {
             helpText="Add your character info and custom their voice."
           />
           <Divider top={20} bottom={24} />
-          <form onSubmit={handleVoiceUpload}>
-            <div className="step-content">
-              <SupportText name="Character Name" />
-              <input
-                className={styles.input}
-                type="text"
-                name="characterName"
-                placeholder="Emily"
-                required
-                onChange={(e) => setFileUploadName(e.target.value)}
-                value={fileUploadName}
-              />
-            </div>
-            <Divider top={20} bottom={20} />
-            <div className="step-content">
-              <SupportText name="Character Notes (optional)" />
-              <input
-                className={styles.input}
-                type="text"
-                name="characterNotes"
-                placeholder="NPC in region 1"
-                onChange={(e) => setFileUploadDescription(e.target.value)}
-                value={fileUploadDescription}
-              />
-            </div>
-            <Divider top={20} bottom={20} />
-            <div className="step-content">
-              <SupportText
-                name="Upload Voice Samples"
-                description="Add up to 25 voice samples."
-              />
-              <div {...getRootProps({ className: "dropzone" })}>
-                <div className="upload-icon">
-                  <UploadIcon width={40} height={40} />
-                </div>
-                <input required ref={fileInputRef} {...getInputProps()} />
-                <div className="upload-content">
-                  <p>
-                    <span
-                      style={{
-                        color: "var(--primary-700",
-                        cursor: "pointer",
-                        fontWeight: "600",
-                      }}
-                    >
-                      Click to upload
-                    </span>{" "}
-                    or drag and drop
-                  </p>
-                  <p>Audio files (up to 5MB each)</p>
-                </div>
-                <aside>
-                  <ul>{files}</ul>
-                </aside>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <form onSubmit={handleVoiceUpload}>
+              <div className="step-content">
+                <SupportText name="Character Name" />
+                <input
+                  className={styles.input}
+                  type="text"
+                  name="characterName"
+                  placeholder="Emily"
+                  onChange={(e) => setFileUploadName(e.target.value)}
+                  value={fileUploadName}
+                />
               </div>
-            </div>
-            <Divider top={20} bottom={20} />
-            <div className="buttons-wrapper">
-              <button
-                className="button-secondary"
-                type="button"
-                onClick={() => router.push("/")}
-              >
-                Cancel
-              </button>
-              <button className="button-primary" type="submit">
-                Save
-              </button>
-            </div>
-          </form>
+              <Divider top={20} bottom={20} />
+              <div className="step-content">
+                <SupportText name="Character Notes (optional)" />
+                <input
+                  className={styles.input}
+                  type="text"
+                  name="characterNotes"
+                  placeholder="NPC in region 1"
+                  onChange={(e) => setFileUploadDescription(e.target.value)}
+                  value={fileUploadDescription}
+                />
+              </div>
+              <Divider top={20} bottom={20} />
+              <div className="step-content">
+                <SupportText
+                  name="Upload Voice Samples"
+                  description="Add up to 25 voice samples."
+                />
+                <div {...getRootProps({ className: "dropzone" })}>
+                  <div className="upload-icon">
+                    <UploadIcon width={40} height={40} />
+                  </div>
+                  <input ref={fileInputRef} {...getInputProps()} />
+                  <div className="upload-content">
+                    <p>
+                      <span
+                        style={{
+                          color: "var(--primary-700",
+                          cursor: "pointer",
+                          fontWeight: "600",
+                        }}
+                      >
+                        Click to upload
+                      </span>{" "}
+                      or drag and drop
+                    </p>
+                    <p>Audio files (up to 5MB each)</p>
+                  </div>
+                  <aside>
+                    <ul>{files}</ul>
+                  </aside>
+                </div>
+              </div>
+              <Divider top={20} bottom={20} />
+              <div className="buttons-wrapper">
+                <button
+                  className="button-secondary"
+                  type="button"
+                  onClick={() => router.push("/")}
+                >
+                  Cancel
+                </button>
+                <button className="button-primary" type="submit">
+                  Save
+                </button>
+              </div>
+            </form>
+          )}
         </section>
       </main>
     </>

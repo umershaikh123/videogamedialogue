@@ -94,7 +94,7 @@ export default function CharacterPage({
     }
 
     alert("Character updated successfully");
-    router.refresh();
+    router.push(`/character/${character.character_id}}`);
   };
 
   const handleDelete = async () => {

@@ -12,3 +12,4 @@ export { default as TrashIcon } from "./trash.svg";
 export { default as EditIcon } from "./edit.svg";
 export { default as UploadIcon } from "./upload.svg";
 export { default as EasyDX } from "./logo.svg";
+export { default as CharacterIcon } from "./character.svg";
