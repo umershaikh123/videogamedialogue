@@ -14,7 +14,7 @@ export default function SidebarLink(props: {
       href={props.href}
     >
       {props.icon}
-      {props.title}
+      <p>{props.title}</p>
     </Link>
   );
 }

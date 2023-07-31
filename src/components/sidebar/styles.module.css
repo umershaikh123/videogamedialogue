@@ -120,3 +120,43 @@
   line-height: 1.25rem;
   color: #ffffff;
 }
+
+@media (max-width: 995px) {
+  .wrapper {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    max-width: none;
+    z-index: 100;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0.5rem;
+  }
+
+  .menu {
+    flex-direction: row;
+    column-gap: 1.5rem;
+    justify-content: space-around;
+  }
+
+  .sidebarLogo {
+    display: none;
+  }
+
+  .logout {
+    display: none;
+  }
+
+  .link p {
+    display: none;
+  }
+
+  .activeLink p {
+    display: none;
+  }
+
+  .sidebarTop {
+    width: 100%;
+  }
+}

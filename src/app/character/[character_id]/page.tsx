@@ -459,7 +459,7 @@ export default function CharacterPage({
                   <div className="table-cell">
                     <p className="table-header_title">Audio Clip Name</p>
                   </div>
-                  <div className="table-cell">
+                  <div className="table-cell mobile-hide">
                     <p className="table-header_title">Created on</p>
                   </div>
                   <div className="table-cell"></div>
@@ -486,7 +486,7 @@ export default function CharacterPage({
                           </a>
                           <p className="table-row_title">{clip.name}</p>
                         </div>
-                        <div className="table-cell">
+                        <div className="table-cell mobile-hide">
                           <p className="table-row_title">
                             {clip.created_at ? getTime(clip.created_at) : ""}
                           </p>

@@ -299,6 +299,11 @@ a {
   flex-direction: column;
   gap: 8px;
 }
+@media (max-width: 995px) {
+  .logout {
+    display: none;
+  }
+}
 
 .modal {
   position: fixed;
@@ -368,4 +373,28 @@ a {
   flex-direction: row;
   gap: 5vw;
   align-items: flex-start;
+}
+
+@media (max-width: 995px) {
+  .avatar-upload-wrapper {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .step-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .main-wrapper {
+    margin-bottom: 8rem;
+    padding: 1rem;
+  }
+  .page-wrapper {
+    min-height: 90vh;
+  }
+
+  .mobile-hide {
+    display: none !important;
+  }
 }

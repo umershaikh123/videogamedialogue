@@ -12,3 +12,14 @@
   overflow-y: auto;
   max-height: 56.5vh;
 }
+
+@media (max-width: 995px) {
+  .startCreatingGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .characterList {
+    max-height: 100%;
+  }
+}
