@@ -301,6 +301,8 @@ export default function CharacterPage({
         document.body.removeChild(link);
       });
     }
+
+    setExportModal(false);
   };
 
   const handleDelete = async (clip_id: string) => {

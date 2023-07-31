@@ -64,13 +64,13 @@ export default function Home() {
           <div className={styles.startCreatingGrid}>
             <DashboardButton
               title="Create a new character"
-              description="Dive into the editor and start creating"
+              description="Add a new character and customize their voice"
               href="/new-character"
               icon={<AddIcon width={20} height={20} />}
             />
             <DashboardButton
               title="Create a new audio clip"
-              description="Dive into the editor and start creating"
+              description="Generate a new audio clip using an existing character"
               href="/new-clip"
               icon={<AddIcon width={20} height={20} />}
             />

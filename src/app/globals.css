@@ -362,3 +362,10 @@ a {
   gap: 12px;
   justify-content: space-between;
 }
+
+.avatar-upload-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: start;
+}

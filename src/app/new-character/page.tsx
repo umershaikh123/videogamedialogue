@@ -19,6 +19,7 @@ import { retreiveListOfCharacters } from "@/services/API";
 import { useEffect } from "react";
 import { supabase } from "@/services/supabase";
 import { useDropzone, FileWithPath } from "react-dropzone";
+import PlaceholderImage from "@/images/placeholder.png";
 
 export default function NewCharacter() {
   const router = useRouter();
@@ -33,6 +34,9 @@ export default function NewCharacter() {
   const [fileUploadName, setFileUploadName] = useState("");
   const [fileUploadDescription, setFileUploadDescription] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [avatarUrl, setAvatarUrl] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   const files = acceptedFiles.map((file: FileWithPath) => (
     <li key={file.path}>
@@ -65,6 +69,48 @@ export default function NewCharacter() {
     }
   };
 
+  /*async function downloadImage() {
+    try {
+      const { data, error } = await supabase.storage
+        .from("avatars")
+        .download(`${user?.id}/profile.png`);
+      if (error) {
+        throw error;
+      }
+      const url = URL.createObjectURL(data);
+      setAvatarUrl(url);
+    } catch (error) {
+      console.log("Error downloading image: ", error);
+    }
+  }
+
+  async function uploadAvatar(event: React.ChangeEvent<HTMLInputElement>) {
+    try {
+      setUploading(true);
+
+      if (!event.target.files || event.target.files.length === 0) {
+        throw new Error("You must select an image to upload.");
+      }
+
+      const file = event.target.files[0];
+      //const fileExt = file.name.split(".").pop();
+      const fileName = `profile.png`;
+      const filePath = `${user?.id}/${fileName}`;
+
+      let { error: uploadError } = await supabase.storage
+        .from("avatars")
+        .upload(filePath, file);
+
+      if (uploadError) {
+        throw uploadError;
+      }
+    } catch (error) {
+      alert(error);
+    } finally {
+      setUploading(false);
+    }
+  }*/
+
   return (
     <>
       <Sidebar />
@@ -75,7 +121,7 @@ export default function NewCharacter() {
         <section>
           <SectionHeader
             title="Character Info"
-            helpText="Add your character info and custom their voice."
+            helpText="Add your character info and customize their voice."
           />
           <Divider top={20} bottom={24} />
           {isLoading ? (
@@ -105,6 +151,45 @@ export default function NewCharacter() {
                   value={fileUploadDescription}
                 />
               </div>
+              {/* <Divider top={20} bottom={20} />
+              <div className="step-content">
+                <SupportText name="Image" description="Minimum 40x40" />
+                <div className="avatar-upload-wrapper">
+                  {avatarUrl ? (
+                    <div className="avatar">
+                      <Image
+                        src={avatarUrl}
+                        alt="Avatar"
+                        width={80}
+                        height={80}
+                      />
+                    </div>
+                  ) : (
+                    <div className="avatar">
+                      <Image
+                        src={PlaceholderImage}
+                        alt="Avatar"
+                        width={200}
+                        height={200}
+                      />
+                    </div>
+                  )}
+                  <label className="button primary block" htmlFor="single">
+                    {uploading ? "Uploading ..." : "Upload"}
+                  </label>
+                  <input
+                    style={{
+                      visibility: "hidden",
+                      position: "absolute",
+                    }}
+                    type="file"
+                    id="single"
+                    accept="image/*"
+                    onChange={uploadAvatar}
+                    disabled={uploading}
+                  />
+                </div>
+              </div>*/}
               <Divider top={20} bottom={20} />
               <div className="step-content">
                 <SupportText
