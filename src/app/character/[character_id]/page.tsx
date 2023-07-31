@@ -16,7 +16,13 @@ import "./characterPage.css";
 import { useEffect } from "react";
 import { supabase } from "@/services/supabase";
 import PlaceholderImage from "@/images/placeholder.png";
-import { AddIcon, ExportIcon, PlayIcon, TrashIcon } from "@/components/icons";
+import {
+  AddIcon,
+  ExportIcon,
+  PlayIcon,
+  TrashIcon,
+  PauseIcon,
+} from "@/components/icons";
 import toWav from "audiobuffer-to-wav";
 
 export default function CharacterPage({
@@ -33,6 +39,8 @@ export default function CharacterPage({
   const [exportModal, setExportModal] = useState(false);
   const [selectedClip, setSelectedClip] = useState<Clip | null>(null);
   const [downloadFormat, setDownloadFormat] = useState("wav");
+  const [playingClipId, setPlayingClipId] = useState<Clip | null>(null);
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
 
   if (!user) {
     return router.push("/login");
@@ -100,6 +108,36 @@ export default function CharacterPage({
     }
   };
 
+  const handlePlayPause = async (clip: Clip) => {
+    if (audio) {
+      if (clip === playingClipId) {
+        // Pause the currently playing clip
+        audio.pause();
+        setPlayingClipId(null);
+      } else {
+        // Stop the currently playing clip and start the new one
+        audio.pause();
+        const src = await getClipAudio(clip.clip_id, user?.id);
+        const newAudio = new Audio(src);
+        newAudio.play();
+        newAudio.onended = () => {
+          setPlayingClipId(null);
+        };
+        setAudio(newAudio);
+        setPlayingClipId(clip);
+      }
+    } else {
+      // Start playing a new clip
+      const src = await getClipAudio(clip.clip_id, user?.id);
+      const newAudio = new Audio(src);
+      newAudio.play();
+      newAudio.onended = () => {
+        setPlayingClipId(null);
+      };
+      setAudio(newAudio);
+      setPlayingClipId(clip);
+    }
+  };
   const handleExportClick = async (clip: Clip) => {
     setSelectedClip(clip);
     setExportModal(true);
@@ -393,7 +431,20 @@ export default function CharacterPage({
                     {clips?.map((clip) => (
                       <div className="table-row" key={clip.clip_id}>
                         <div className="table-cell">
-                          <PlayIcon width={20} height={20} />
+                          <a
+                            className="play-icon"
+                            onClick={() => handlePlayPause(clip)}
+                          >
+                            {clip === playingClipId ? (
+                              <PauseIcon width={20} height={20} />
+                            ) : (
+                              <PlayIcon
+                                width={20}
+                                height={20}
+                                style={{ position: "relative", left: 2 }}
+                              />
+                            )}
+                          </a>
                           <p className="table-row_title">{clip.name}</p>
                         </div>
                         <div className="table-cell">
